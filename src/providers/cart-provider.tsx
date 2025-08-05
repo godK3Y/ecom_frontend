@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { CartProvider as CartContextProvider } from "@/context/cart-context"
+import { CartProvider as CartContextProvider } from "@/stores/cart-context";
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
-  return <CartContextProvider>{children}</CartContextProvider>
+  return <CartContextProvider>{children}</CartContextProvider>;
 }

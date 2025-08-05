@@ -1,5 +1,5 @@
-import Link from "next/link"
-import { Facebook, Instagram, Twitter, Youtube } from "lucide-react"
+import Link from "next/link";
+import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
 
 const footerLinks = {
   shop: [
@@ -29,19 +29,19 @@ const footerLinks = {
     { name: "Cookie Policy", href: "/cookies" },
     { name: "Accessibility", href: "/accessibility" },
   ],
-}
+};
 
 const socialLinks = [
   { name: "Facebook", href: "#", icon: Facebook },
   { name: "Instagram", href: "#", icon: Instagram },
   { name: "Twitter", href: "#", icon: Twitter },
   { name: "YouTube", href: "#", icon: Youtube },
-]
+];
 
 export function Footer() {
   return (
     <footer className="bg-slate-50 dark:bg-slate-900 border-t">
-      <div className="container px-4 py-12 sm:py-16">
+      <div className=" px-24 py-12 sm:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="lg:col-span-1 space-y-4">
@@ -50,7 +50,8 @@ export function Footer() {
               <span className="font-bold text-lg">KeyCommerce</span>
             </Link>
             <p className="text-sm text-muted-foreground">
-              Elevating your style with premium fashion and lifestyle products crafted for the modern world.
+              Elevating your style with premium fashion and lifestyle products
+              crafted for the modern world.
             </p>
             <div className="flex space-x-4">
               {socialLinks.map((social) => (
@@ -135,9 +136,13 @@ export function Footer() {
         </div>
 
         <div className="border-t mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center">
-          <p className="text-sm text-muted-foreground">© 2024 KeyCommerce. All rights reserved.</p>
+          <p className="text-sm text-muted-foreground">
+            © 2024 KeyCommerce. All rights reserved.
+          </p>
           <div className="flex items-center space-x-4 mt-4 sm:mt-0">
-            <span className="text-sm text-muted-foreground">Payment methods:</span>
+            <span className="text-sm text-muted-foreground">
+              Payment methods:
+            </span>
             <div className="flex space-x-2">
               <div className="h-6 w-10 bg-slate-200 dark:bg-slate-700 rounded" />
               <div className="h-6 w-10 bg-slate-200 dark:bg-slate-700 rounded" />
@@ -148,5 +153,5 @@ export function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }

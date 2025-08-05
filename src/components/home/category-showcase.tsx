@@ -24,7 +24,7 @@ const categories = [
 export function CategoryShowcase() {
   return (
     <section className="py-16 sm:py-24 bg-slate-50 dark:bg-slate-900/50">
-      <div className=" px-20">
+      <div className="container px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-4">
             Shop by Category

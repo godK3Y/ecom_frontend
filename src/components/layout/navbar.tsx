@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { Search, ShoppingBag, User, Menu, X, Heart } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Badge } from "@/components/ui/badge"
+import { useState } from "react";
+import Link from "next/link";
+import { Search, ShoppingBag, User, Menu, X, Heart } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Badge } from "@/components/ui/badge";
 
 const navigation = [
   { name: "New Arrivals", href: "/products?category=new" },
@@ -14,15 +14,15 @@ const navigation = [
   { name: "Women", href: "/products?category=women" },
   { name: "Kids", href: "/products?category=kids" },
   { name: "Sale", href: "/products?category=sale" },
-]
+];
 
 export function Navbar() {
-  const [isSearchOpen, setIsSearchOpen] = useState(false)
-  const cartItemCount = 3 // This would come from cart context
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const cartItemCount = 3; // This would come from cart context
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between px-4">
+      <div className=" flex h-16 items-center justify-between px-24">
         {/* Mobile menu */}
         <Sheet>
           <SheetTrigger asChild>
@@ -37,18 +37,31 @@ export function Navbar() {
                 <h2 className="text-lg font-semibold">KeyCommerce</h2>
               </div>
               {navigation.map((item) => (
-                <Link key={item.name} href={item.href} className="block px-2 py-1 text-lg hover:text-primary">
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="block px-2 py-1 text-lg hover:text-primary"
+                >
                   {item.name}
                 </Link>
               ))}
               <div className="border-t pt-4">
-                <Link href="/profile" className="block px-2 py-1 text-lg hover:text-primary">
+                <Link
+                  href="/profile"
+                  className="block px-2 py-1 text-lg hover:text-primary"
+                >
                   Profile
                 </Link>
-                <Link href="/orders" className="block px-2 py-1 text-lg hover:text-primary">
+                <Link
+                  href="/orders"
+                  className="block px-2 py-1 text-lg hover:text-primary"
+                >
                   Orders
                 </Link>
-                <Link href="/wishlist" className="block px-2 py-1 text-lg hover:text-primary">
+                <Link
+                  href="/wishlist"
+                  className="block px-2 py-1 text-lg hover:text-primary"
+                >
                   Wishlist
                 </Link>
               </div>
@@ -65,7 +78,11 @@ export function Navbar() {
         {/* Desktop navigation */}
         <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
           {navigation.map((item) => (
-            <Link key={item.name} href={item.href} className="transition-colors hover:text-primary">
+            <Link
+              key={item.name}
+              href={item.href}
+              className="transition-colors hover:text-primary"
+            >
               {item.name}
             </Link>
           ))}
@@ -77,13 +94,25 @@ export function Navbar() {
           <div className="hidden md:flex items-center">
             {isSearchOpen ? (
               <div className="flex items-center space-x-2">
-                <Input placeholder="Search products..." className="w-64" autoFocus />
-                <Button variant="ghost" size="icon" onClick={() => setIsSearchOpen(false)}>
+                <Input
+                  placeholder="Search products..."
+                  className="w-64"
+                  autoFocus
+                />
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setIsSearchOpen(false)}
+                >
                   <X className="h-4 w-4" />
                 </Button>
               </div>
             ) : (
-              <Button variant="ghost" size="icon" onClick={() => setIsSearchOpen(true)}>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsSearchOpen(true)}
+              >
                 <Search className="h-4 w-4" />
                 <span className="sr-only">Search</span>
               </Button>
@@ -109,7 +138,9 @@ export function Navbar() {
             <Link href="/cart">
               <ShoppingBag className="h-4 w-4" />
               {cartItemCount > 0 && (
-                <Badge className="absolute -right-1 -top-1 h-5 w-5 rounded-full p-0 text-xs">{cartItemCount}</Badge>
+                <Badge className="absolute -right-1 -top-1 h-5 w-5 rounded-full p-0 text-xs">
+                  {cartItemCount}
+                </Badge>
               )}
               <span className="sr-only">Shopping cart</span>
             </Link>
@@ -125,5 +156,5 @@ export function Navbar() {
         </div>
       </div>
     </header>
-  )
+  );
 }

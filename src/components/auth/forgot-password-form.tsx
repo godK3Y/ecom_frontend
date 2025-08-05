@@ -1,48 +1,55 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { authService } from "@/services/auth.service"
-import { Mail } from "lucide-react"
-
-const forgotPasswordSchema = z.object({
-  email: z.string().email("Invalid email address"),
-})
-
-type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { authService } from "@/services/auth.service";
+import { Mail } from "lucide-react";
 
 export function ForgotPasswordForm() {
-  const [isLoading, setIsLoading] = useState(false)
-  const [isSuccess, setIsSuccess] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<ForgotPasswordFormData>({
-    resolver: zodResolver(forgotPasswordSchema),
-  })
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email) {
+      setEmailError("Email is required");
+      return false;
+    }
+    if (!emailRegex.test(email)) {
+      setEmailError("Invalid email address");
+      return false;
+    }
+    setEmailError("");
+    return true;
+  };
 
-  const onSubmit = async (data: ForgotPasswordFormData) => {
-    setIsLoading(true)
-    setError(null)
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+
+    if (!validateEmail(email)) {
+      return;
+    }
+
+    setIsLoading(true);
 
     try {
-      await authService.resetPassword(data.email)
-      setIsSuccess(true)
+      await authService.resetPassword(email);
+      setIsSuccess(true);
     } catch (error) {
-      setError(error instanceof Error ? error.message : "Failed to send reset email")
+      setError(
+        error instanceof Error ? error.message : "Failed to send reset email"
+      );
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   if (isSuccess) {
     return (
@@ -54,14 +61,16 @@ export function ForgotPasswordForm() {
         </div>
         <div>
           <h3 className="text-lg font-semibold">Check your email</h3>
-          <p className="text-muted-foreground">We've sent a password reset link to your email address.</p>
+          <p className="text-muted-foreground">
+            We&apos;ve sent a password reset link to your email address.
+          </p>
         </div>
       </div>
-    )
+    );
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4">
       {error && (
         <Alert variant="destructive">
           <AlertDescription>{error}</AlertDescription>
@@ -74,14 +83,16 @@ export function ForgotPasswordForm() {
           id="email"
           type="email"
           placeholder="Enter your email"
-          {...register("email")}
-          error={errors.email?.message}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className={emailError ? "border-red-500" : ""}
         />
+        {emailError && <p className="text-sm text-red-500">{emailError}</p>}
       </div>
 
       <Button type="submit" className="w-full" disabled={isLoading}>
         {isLoading ? "Sending..." : "Send Reset Link"}
       </Button>
     </form>
-  )
+  );
 }

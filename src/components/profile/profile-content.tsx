@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ProfileInfo } from "@/components/profile/profile-info"
-import { ProfileOrders } from "@/components/profile/profile-orders"
-import { ProfileAddresses } from "@/components/profile/profile-addresses"
-import { ProfileSettings } from "@/components/profile/profile-settings"
+import { useState } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ProfileInfo } from "@/components/profile/profile-info";
+import { ProfileOrders } from "@/components/profile/profile-orders";
+import { ProfileAddresses } from "@/components/profile/profile-addresses";
+import { ProfileSettings } from "@/components/profile/profile-settings";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -13,13 +13,13 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
+} from "@/components/ui/breadcrumb";
 
 export function ProfileContent() {
-  const [activeTab, setActiveTab] = useState("profile")
+  const [activeTab, setActiveTab] = useState("profile");
 
   return (
-    <div className="container px-4 py-8">
+    <div className=" px-24 py-8">
       {/* Breadcrumb */}
       <Breadcrumb className="mb-6">
         <BreadcrumbList>
@@ -36,11 +36,17 @@ export function ProfileContent() {
       {/* Profile Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight">My Account</h1>
-        <p className="text-muted-foreground">Manage your account settings and preferences</p>
+        <p className="text-muted-foreground">
+          Manage your account settings and preferences
+        </p>
       </div>
 
       {/* Profile Tabs */}
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+      <Tabs
+        value={activeTab}
+        onValueChange={setActiveTab}
+        className="space-y-6"
+      >
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="profile">Profile</TabsTrigger>
           <TabsTrigger value="orders">Orders</TabsTrigger>
@@ -65,5 +71,5 @@ export function ProfileContent() {
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }

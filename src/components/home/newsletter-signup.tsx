@@ -1,7 +1,6 @@
 "use client";
 
 import type React from "react";
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,7 +19,7 @@ export function NewsletterSignup() {
 
   return (
     <section className="py-16 sm:py-24 bg-primary text-primary-foreground">
-      <div className=" px-24">
+      <div className="container px-4">
         <div className="max-w-2xl mx-auto text-center space-y-8">
           <div className="space-y-4">
             <div className="flex justify-center">

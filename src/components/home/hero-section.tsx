@@ -1,12 +1,11 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import Image from "next/image";
 
 export function HeroSection() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
-      <div className=" px-24 py-4 sm:py-32 lg:py-20">
+      <div className="container px-4 py-24 sm:py-32 lg:py-40">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-8 items-center">
           <div className="flex flex-col justify-center space-y-8">
             <div className="space-y-4">
@@ -55,10 +54,8 @@ export function HeroSection() {
 
           <div className="relative">
             <div className="aspect-square overflow-hidden rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5">
-              <Image
-                src="/images/hero-image.jpg"
-                width={600}
-                height={600}
+              <img
+                src="/placeholder.svg?height=600&width=600"
                 alt="Premium Fashion Collection"
                 className="h-full w-full object-cover"
               />

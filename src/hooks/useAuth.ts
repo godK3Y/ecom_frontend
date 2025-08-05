@@ -1,5 +1,5 @@
-import { useAuth as useAuthContext } from "@/context/auth-context"
+import { useAuth as useAuthContext } from "@/stores/auth-context";
 
 export const useAuth = () => {
-  return useAuthContext()
-}
+  return useAuthContext();
+};
