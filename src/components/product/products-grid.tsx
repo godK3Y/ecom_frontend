@@ -1,69 +1,79 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { ProductCard } from "@/components/product/product-card"
-import { Button } from "@/components/ui/button"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Skeleton } from "@/components/ui/skeleton"
-import { productService } from "@/services/product.service"
-import { PRODUCT_SORT_OPTIONS } from "@/lib/constants"
-import type { Product, ProductFilters } from "@/interfaces/product"
+import { useState, useEffect } from "react";
+import { ProductCard } from "@/components/product/product-card";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Skeleton } from "@/components/ui/skeleton";
+import { productService } from "@/services/product.service";
+import { PRODUCT_SORT_OPTIONS } from "@/lib/constants";
+import type { Product, ProductFilters } from "@/interfaces/product";
 
 interface ProductsGridProps {
   searchParams: {
-    category?: string
-    brand?: string
-    minPrice?: string
-    maxPrice?: string
-    sortBy?: string
-    page?: string
-  }
+    category?: string;
+    brand?: string;
+    minPrice?: string;
+    maxPrice?: string;
+    sortBy?: string;
+    page?: string;
+  };
 }
 
 export function ProductsGrid({ searchParams }: ProductsGridProps) {
-  const [products, setProducts] = useState<Product[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [totalPages, setTotalPages] = useState(1)
-  const [currentPage, setCurrentPage] = useState(1)
-  const [sortBy, setSortBy] = useState(searchParams.sortBy || "name-asc")
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [totalPages, setTotalPages] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [sortBy, setSortBy] = useState(searchParams.sortBy || "name-asc");
 
   useEffect(() => {
     const fetchProducts = async () => {
-      setIsLoading(true)
+      setIsLoading(true);
       try {
         const filters: ProductFilters = {
           category: searchParams.category,
           brand: searchParams.brand,
-          minPrice: searchParams.minPrice ? Number.parseFloat(searchParams.minPrice) : undefined,
-          maxPrice: searchParams.maxPrice ? Number.parseFloat(searchParams.maxPrice) : undefined,
+          minPrice: searchParams.minPrice
+            ? Number.parseFloat(searchParams.minPrice)
+            : undefined,
+          maxPrice: searchParams.maxPrice
+            ? Number.parseFloat(searchParams.maxPrice)
+            : undefined,
           page: currentPage,
           limit: 12,
-        }
+        };
 
         // Parse sort parameters
         if (sortBy) {
-          const [sortField, sortOrder] = sortBy.split("-")
-          filters.sortBy = sortField as any
-          filters.sortOrder = sortOrder as "asc" | "desc"
+          const [sortField, sortOrder] = sortBy.split("-");
+          filters.sortBy = sortField as "price" | "name";
+          filters.sortOrder = sortOrder as "asc" | "desc";
         }
 
-        const response = await productService.getProducts(filters)
-        setProducts(response.products)
-        setTotalPages(response.totalPages)
+        const response = await productService.getProducts(filters);
+        setProducts(response.products);
+        setTotalPages(response.totalPages);
       } catch (error) {
-        console.error("Failed to fetch products:", error)
+        console.error("Failed to fetch products:", error);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
-    }
+    };
 
-    fetchProducts()
-  }, [searchParams, currentPage, sortBy])
+    fetchProducts();
+  }, [searchParams, currentPage, sortBy]);
 
   const handleSortChange = (value: string) => {
-    setSortBy(value)
-    setCurrentPage(1) // Reset to first page when sorting changes
-  }
+    setSortBy(value);
+    setCurrentPage(1); // Reset to first page when sorting changes
+  };
 
   if (isLoading) {
     return (
@@ -85,14 +95,16 @@ export function ProductsGrid({ searchParams }: ProductsGridProps) {
           ))}
         </div>
       </div>
-    )
+    );
   }
 
   return (
     <div className="space-y-6">
       {/* Sort and Results Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <p className="text-muted-foreground">Showing {products.length} products</p>
+        <p className="text-muted-foreground">
+          Showing {products.length} products
+        </p>
 
         <Select value={sortBy} onValueChange={handleSortChange}>
           <SelectTrigger className="w-[200px]">
@@ -130,7 +142,7 @@ export function ProductsGrid({ searchParams }: ProductsGridProps) {
 
               <div className="flex items-center gap-1">
                 {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-                  const page = i + 1
+                  const page = i + 1;
                   return (
                     <Button
                       key={page}
@@ -140,13 +152,15 @@ export function ProductsGrid({ searchParams }: ProductsGridProps) {
                     >
                       {page}
                     </Button>
-                  )
+                  );
                 })}
               </div>
 
               <Button
                 variant="outline"
-                onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
+                onClick={() =>
+                  setCurrentPage((prev) => Math.min(totalPages, prev + 1))
+                }
                 disabled={currentPage === totalPages}
               >
                 Next
@@ -156,10 +170,12 @@ export function ProductsGrid({ searchParams }: ProductsGridProps) {
         </>
       ) : (
         <div className="text-center py-12">
-          <p className="text-muted-foreground mb-4">No products found matching your criteria.</p>
+          <p className="text-muted-foreground mb-4">
+            No products found matching your criteria.
+          </p>
           <Button variant="outline">Clear Filters</Button>
         </div>
       )}
     </div>
-  )
+  );
 }

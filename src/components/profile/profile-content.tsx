@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ProfileInfo } from "@/components/profile/profile-info";
 import { ProfileOrders } from "@/components/profile/profile-orders";
 import { ProfileAddresses } from "@/components/profile/profile-addresses";
-import { ProfileSettings } from "@/components/profile/profile-settings";
+// import { ProfileSettings } from "@/components/profile/profile-settings";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -66,9 +66,7 @@ export function ProfileContent() {
           <ProfileAddresses />
         </TabsContent>
 
-        <TabsContent value="settings">
-          <ProfileSettings />
-        </TabsContent>
+        <TabsContent value="settings">{/* <ProfileSettings /> */}</TabsContent>
       </Tabs>
     </div>
   );
