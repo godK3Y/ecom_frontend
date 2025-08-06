@@ -57,7 +57,7 @@ export function ForgotPasswordForm() {
         <div>
           <h3 className="text-lg font-semibold">Check your email</h3>
           <p className="text-muted-foreground">
-            We've sent a password reset link to your email address.
+            We&apos;ve sent a password reset link to your email address.
           </p>
         </div>
       </div>
@@ -79,8 +79,12 @@ export function ForgotPasswordForm() {
           type="email"
           placeholder="Enter your email"
           {...register("email")}
-          error={errors.email?.message}
         />
+        {errors.email?.message && (
+          <p className="text-sm text-red-600 dark:text-red-400">
+            {errors.email.message}
+          </p>
+        )}
       </div>
 
       <Button type="submit" className="w-full" disabled={isLoading}>

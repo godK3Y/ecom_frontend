@@ -1,7 +1,7 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { ShoppingBag } from "lucide-react"
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { ShoppingBag } from "lucide-react";
 
 export function EmptyCart() {
   return (
@@ -14,7 +14,9 @@ export function EmptyCart() {
         </div>
         <div className="space-y-2">
           <h2 className="text-2xl font-semibold">Your cart is empty</h2>
-          <p className="text-muted-foreground">Looks like you haven't added any items to your cart yet.</p>
+          <p className="text-muted-foreground">
+            Looks like you haven&apos;t added any items to your cart yet.
+          </p>
         </div>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Button size="lg" asChild>
@@ -26,5 +28,5 @@ export function EmptyCart() {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

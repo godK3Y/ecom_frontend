@@ -47,21 +47,21 @@ export function RegisterForm() {
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
           <Label htmlFor="firstName">First Name</Label>
-          <Input
-            id="firstName"
-            placeholder="John"
-            {...register("firstName")}
-            error={errors.firstName?.message}
-          />
+          <Input id="firstName" placeholder="John" {...register("firstName")} />
+          {errors.firstName && (
+            <p className="text-sm text-destructive">
+              {errors.firstName.message}
+            </p>
+          )}
         </div>
         <div className="space-y-2">
           <Label htmlFor="lastName">Last Name</Label>
-          <Input
-            id="lastName"
-            placeholder="Doe"
-            {...register("lastName")}
-            error={errors.lastName?.message}
-          />
+          <Input id="lastName" placeholder="Doe" {...register("lastName")} />
+          {errors.lastName && (
+            <p className="text-sm text-destructive">
+              {errors.lastName.message}
+            </p>
+          )}
         </div>
       </div>
 
@@ -72,8 +72,10 @@ export function RegisterForm() {
           type="email"
           placeholder="john@example.com"
           {...register("email")}
-          error={errors.email?.message}
         />
+        {errors.email && (
+          <p className="text-sm text-destructive">{errors.email.message}</p>
+        )}
       </div>
 
       <div className="space-y-2">
@@ -84,7 +86,6 @@ export function RegisterForm() {
             type={showPassword ? "text" : "password"}
             placeholder="Create a strong password"
             {...register("password")}
-            error={errors.password?.message}
           />
           <Button
             type="button"

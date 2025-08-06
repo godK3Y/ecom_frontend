@@ -46,7 +46,6 @@ export function LoginForm() {
           type="email"
           placeholder="Enter your email"
           {...register("email")}
-          error={errors.email?.message}
         />
       </div>
 
@@ -58,7 +57,6 @@ export function LoginForm() {
             type={showPassword ? "text" : "password"}
             placeholder="Enter your password"
             {...register("password")}
-            error={errors.password?.message}
           />
           <Button
             type="button"
