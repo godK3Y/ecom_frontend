@@ -1,6 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -8,39 +11,31 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { authService } from "@/services/auth.service";
 import { Mail } from "lucide-react";
 
+const forgotPasswordSchema = z.object({
+  email: z.string().email("Invalid email address"),
+});
+
+type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>;
+
 export function ForgotPasswordForm() {
-  const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email) {
-      setEmailError("Email is required");
-      return false;
-    }
-    if (!emailRegex.test(email)) {
-      setEmailError("Invalid email address");
-      return false;
-    }
-    setEmailError("");
-    return true;
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ForgotPasswordFormData>({
+    resolver: zodResolver(forgotPasswordSchema),
+  });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit = async (data: ForgotPasswordFormData) => {
+    setIsLoading(true);
     setError(null);
 
-    if (!validateEmail(email)) {
-      return;
-    }
-
-    setIsLoading(true);
-
     try {
-      await authService.resetPassword(email);
+      await authService.resetPassword(data.email);
       setIsSuccess(true);
     } catch (error) {
       setError(
@@ -62,7 +57,7 @@ export function ForgotPasswordForm() {
         <div>
           <h3 className="text-lg font-semibold">Check your email</h3>
           <p className="text-muted-foreground">
-            We&apos;ve sent a password reset link to your email address.
+            We've sent a password reset link to your email address.
           </p>
         </div>
       </div>
@@ -70,7 +65,7 @@ export function ForgotPasswordForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       {error && (
         <Alert variant="destructive">
           <AlertDescription>{error}</AlertDescription>
@@ -83,11 +78,9 @@ export function ForgotPasswordForm() {
           id="email"
           type="email"
           placeholder="Enter your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className={emailError ? "border-red-500" : ""}
+          {...register("email")}
+          error={errors.email?.message}
         />
-        {emailError && <p className="text-sm text-red-500">{emailError}</p>}
       </div>
 
       <Button type="submit" className="w-full" disabled={isLoading}>

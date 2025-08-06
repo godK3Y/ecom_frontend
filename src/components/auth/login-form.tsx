@@ -1,63 +1,38 @@
 "use client";
 
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useAuth } from "@/hooks/useAuth";
+import { loginSchema, type LoginFormData } from "@/lib/validators";
 import { Eye, EyeOff } from "lucide-react";
 
 export function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const { login, isLoading, error } = useAuth();
 
-  const validateForm = () => {
-    let isValid = true;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+  });
 
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email) {
-      setEmailError("Email is required");
-      isValid = false;
-    } else if (!emailRegex.test(email)) {
-      setEmailError("Invalid email address");
-      isValid = false;
-    } else {
-      setEmailError("");
-    }
-
-    // Password validation
-    if (!password) {
-      setPasswordError("Password is required");
-      isValid = false;
-    } else {
-      setPasswordError("");
-    }
-
-    return isValid;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!validateForm()) {
-      return;
-    }
-
+  const onSubmit = async (data: LoginFormData) => {
     try {
-      await login({ email, password });
+      await login(data);
     } catch (error) {
       // Error is handled by the auth context
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       {error && (
         <Alert variant="destructive">
           <AlertDescription>{error}</AlertDescription>
@@ -70,11 +45,9 @@ export function LoginForm() {
           id="email"
           type="email"
           placeholder="Enter your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className={emailError ? "border-red-500" : ""}
+          {...register("email")}
+          error={errors.email?.message}
         />
-        {emailError && <p className="text-sm text-red-500">{emailError}</p>}
       </div>
 
       <div className="space-y-2">
@@ -84,9 +57,8 @@ export function LoginForm() {
             id="password"
             type={showPassword ? "text" : "password"}
             placeholder="Enter your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className={passwordError ? "border-red-500" : ""}
+            {...register("password")}
+            error={errors.password?.message}
           />
           <Button
             type="button"
@@ -102,9 +74,6 @@ export function LoginForm() {
             )}
           </Button>
         </div>
-        {passwordError && (
-          <p className="text-sm text-red-500">{passwordError}</p>
-        )}
       </div>
 
       <Button type="submit" className="w-full" disabled={isLoading}>
