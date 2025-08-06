@@ -30,7 +30,7 @@ const values = [
 export function BrandStory() {
   return (
     <section className="py-16 sm:py-24">
-      <div className="container px-4">
+      <div className="   px-24">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div className="space-y-8">
             <div className="space-y-4">

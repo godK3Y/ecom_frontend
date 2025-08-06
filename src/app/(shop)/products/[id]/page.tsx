@@ -1,7 +1,7 @@
-import { ProductGallery } from "@/components/product/product-gallery"
-import { ProductInfo } from "@/components/product/product-info"
-import { ProductTabs } from "@/components/product/product-tabs"
-import { RelatedProducts } from "@/components/product/related-products"
+import { ProductGallery } from "@/components/product/product-gallery";
+import { ProductInfo } from "@/components/product/product-info";
+import { ProductTabs } from "@/components/product/product-tabs";
+import { RelatedProducts } from "@/components/product/related-products";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,22 +9,22 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
-import { productService } from "@/services/product.service"
-import { notFound } from "next/navigation"
+} from "@/components/ui/breadcrumb";
+import { productService } from "@/services/product.service";
+import { notFound } from "next/navigation";
 
 interface ProductPageProps {
   params: {
-    id: string
-  }
+    id: string;
+  };
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
   try {
-    const product = await productService.getProduct(params.id)
+    const product = await productService.getProduct(params.id);
 
     return (
-      <div className="container px-4 py-8">
+      <div className="   px-24 py-8">
         {/* Breadcrumb */}
         <Breadcrumb className="mb-6">
           <BreadcrumbList>
@@ -37,7 +37,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href={`/products?category=${product.category.slug}`}>
+              <BreadcrumbLink
+                href={`/products?category=${product.category.slug}`}
+              >
                 {product.category.name}
               </BreadcrumbLink>
             </BreadcrumbItem>
@@ -58,10 +60,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
         <ProductTabs product={product} />
 
         {/* Related Products */}
-        <RelatedProducts categoryId={product.category.id} currentProductId={product.id} />
+        <RelatedProducts
+          categoryId={product.category.id}
+          currentProductId={product.id}
+        />
       </div>
-    )
+    );
   } catch (error) {
-    notFound()
+    notFound();
   }
 }

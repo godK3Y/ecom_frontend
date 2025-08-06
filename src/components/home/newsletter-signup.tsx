@@ -19,7 +19,7 @@ export function NewsletterSignup() {
 
   return (
     <section className="py-16 sm:py-24 bg-primary text-primary-foreground">
-      <div className="container px-4">
+      <div className="   px-24">
         <div className="max-w-2xl mx-auto text-center space-y-8">
           <div className="space-y-4">
             <div className="flex justify-center">

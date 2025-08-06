@@ -1,5 +1,5 @@
-import { ProductsGrid } from "@/components/product/products-grid"
-import { ProductFilters } from "@/components/product/product-filters"
+import { ProductsGrid } from "@/components/product/products-grid";
+import { ProductFilters } from "@/components/product/product-filters";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -7,22 +7,22 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
+} from "@/components/ui/breadcrumb";
 
 interface ProductsPageProps {
   searchParams: {
-    category?: string
-    brand?: string
-    minPrice?: string
-    maxPrice?: string
-    sortBy?: string
-    page?: string
-  }
+    category?: string;
+    brand?: string;
+    minPrice?: string;
+    maxPrice?: string;
+    sortBy?: string;
+    page?: string;
+  };
 }
 
 export default function ProductsPage({ searchParams }: ProductsPageProps) {
   return (
-    <div className="container px-4 py-8">
+    <div className="  px-24 py-8">
       {/* Breadcrumb */}
       <Breadcrumb className="mb-6">
         <BreadcrumbList>
@@ -39,10 +39,13 @@ export default function ProductsPage({ searchParams }: ProductsPageProps) {
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl mb-4">
-          {searchParams.category ? `${searchParams.category} Collection` : "All Products"}
+          {searchParams.category
+            ? `${searchParams.category} Collection`
+            : "All Products"}
         </h1>
         <p className="text-muted-foreground">
-          Discover our complete collection of premium fashion and lifestyle products.
+          Discover our complete collection of premium fashion and lifestyle
+          products.
         </p>
       </div>
 
@@ -58,5 +61,5 @@ export default function ProductsPage({ searchParams }: ProductsPageProps) {
         </main>
       </div>
     </div>
-  )
+  );
 }

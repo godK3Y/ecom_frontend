@@ -1,4 +1,4 @@
-import { CartContent } from "@/components/cart/cart-content"
+import { CartContent } from "@/components/cart/cart-content";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -6,11 +6,11 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
+} from "@/components/ui/breadcrumb";
 
 export default function CartPage() {
   return (
-    <div className="container px-4 py-8">
+    <div className="  px-24 py-8">
       {/* Breadcrumb */}
       <Breadcrumb className="mb-6">
         <BreadcrumbList>
@@ -27,5 +27,5 @@ export default function CartPage() {
       {/* Cart Content */}
       <CartContent />
     </div>
-  )
+  );
 }
