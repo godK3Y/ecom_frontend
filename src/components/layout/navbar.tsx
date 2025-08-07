@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 const navigation = [
   { name: "New Arrivals", href: "/products?category=new" },
@@ -22,7 +23,7 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className=" flex h-16 items-center justify-between px-24">
+      <div className="container flex h-16 items-center justify-between px-24">
         {/* Mobile menu */}
         <Sheet>
           <SheetTrigger asChild>
@@ -64,6 +65,10 @@ export function Navbar() {
                 >
                   Wishlist
                 </Link>
+                <div className="flex items-center justify-between px-2 py-1">
+                  <span className="text-lg">Theme</span>
+                  <ThemeToggle />
+                </div>
               </div>
             </nav>
           </SheetContent>
@@ -124,6 +129,9 @@ export function Navbar() {
             <Search className="h-4 w-4" />
             <span className="sr-only">Search</span>
           </Button>
+
+          {/* Theme Toggle */}
+          <ThemeToggle />
 
           {/* Wishlist */}
           <Button variant="ghost" size="icon" asChild>

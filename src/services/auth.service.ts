@@ -2,9 +2,8 @@ import type {
   AuthResponse,
   LoginCredentials,
   RegisterData,
-  User,
 } from "@/interfaces/auth";
-
+import { User } from "./../interfaces/user";
 class AuthService {
   // Mock user data
   private mockUser: User = {

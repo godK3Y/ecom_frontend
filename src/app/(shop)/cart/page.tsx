@@ -10,7 +10,7 @@ import {
 
 export default function CartPage() {
   return (
-    <div className="  px-24 py-8">
+    <div className="px-24 py-8">
       {/* Breadcrumb */}
       <Breadcrumb className="mb-6">
         <BreadcrumbList>
